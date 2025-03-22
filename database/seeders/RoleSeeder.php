@@ -39,16 +39,6 @@ class RoleSeeder extends Seeder
             'name' => PermissionsEnum::MANAGECATEGORIESTAGS->value
         ]);
 
-        // Admin
-        $manageSiteSettings = Permission::create([
-            'name' => PermissionsEnum::MANAGESITESETTINGS->value
-        ]);
-
-        // Admin, Editor
-        $adminPanelAccessPermission = Permission::create([
-            'name' => PermissionsEnum::ACCESSADMINPANEL->value
-        ]);
-
         // Author
         $manageOwnArticles = Permission::create([
             'name' => PermissionsEnum::MANAGEOWNARTICLES->value
@@ -58,16 +48,13 @@ class RoleSeeder extends Seeder
             $manageUsers,
             $manageAllArticles,
             $publishArticlesPermission,
-            $manageCategoriesTags,
-            $manageSiteSettings,
-            $adminPanelAccessPermission
+            $manageCategoriesTags
         ]);
 
         $editorRole->syncPermissions([
             $manageAllArticles,
             $publishArticlesPermission,
-            $manageCategoriesTags,
-            $adminPanelAccessPermission
+            $manageCategoriesTags
         ]);
 
         $authorRole->syncPermissions([
