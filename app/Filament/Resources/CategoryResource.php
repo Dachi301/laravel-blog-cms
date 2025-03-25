@@ -58,16 +58,6 @@ class CategoryResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
-
-                TextColumn::make('meta_title')
-                    ->sortable()
-                    ->searchable()
-                    ->limit(15),
-
-                TextColumn::make('meta_description')
-                    ->sortable()
-                    ->searchable()
-                    ->limit(15),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
