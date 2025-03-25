@@ -8,6 +8,7 @@ use App\Filament\Resources\ArticleResource\Pages\EditArticle;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
 use Filament\Forms;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
@@ -25,11 +26,12 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\SpatieTagsInput;
+
 
 class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -78,6 +80,8 @@ class ArticleResource extends Resource
                             ->searchable()
                             ->required()
                     ]),
+                SpatieTagsInput::make('tags')
+                    ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('avatar')->image(),
                 RichEditor::make('description')
                         ->required()
@@ -108,11 +112,6 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-//                SpatieMediaLibraryImageColumn::make('avatar')
-//                    ->collection('images')
-//                    ->limit(1)
-//                    ->label('Image')
-//                    ->conversion('thumb'),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('avatar'),
                 TextColumn::make('title')
                     ->sortable()

@@ -10,9 +10,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+use Spatie\Tags\HasTags;
+
 class Article extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, HasTags;
+
+    protected $casts = [
+        'tags' => 'array',
+    ];
 
     public function registerMediaConversions(?Media $media = null): void
     {
