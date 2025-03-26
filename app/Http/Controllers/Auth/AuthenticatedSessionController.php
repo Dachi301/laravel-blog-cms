@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,28 +24,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
         $user = Auth::user();
-        $route = '/';
 
-        if ($user->hasAnyRole([RolesEnum::ADMIN, RolesEnum::EDITOR])) {
-            $route = '/admin';
-        } else if ($user->hasRole(RolesEnum::AUTHOR)) {
-            $route = '/dashboard';
-        }
-
-        return redirect()->intended($route);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'token' => $user->createToken($user->name)->plainTextToken,
+                'name' => $user->name
+            ],
+        ], 200);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request): JsonResponse
     {
         Auth::guard('web')->logout();
 
@@ -52,6 +52,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return response()->json([
+            'message' => 'User Logged Out!',
+        ], 200);
     }
 }
