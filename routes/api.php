@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('articles', ArticleController::class)
+        ->parameters(['articles' => 'slug']);
+
     Route::apiResource('categories', CategoryController::class)->parameters([
         'categories' => 'category:slug',
     ]);

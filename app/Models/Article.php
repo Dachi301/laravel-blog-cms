@@ -16,9 +16,9 @@ class Article extends Model implements HasMedia
 {
     use InteractsWithMedia, HasTags;
 
-    protected $casts = [
-        'tags' => 'array',
-    ];
+//    protected $casts = [
+//        'tags' => 'array',
+//    ];
 
     public function registerMediaConversions(?Media $media = null): void
     {
@@ -26,6 +26,13 @@ class Article extends Model implements HasMedia
             ->addMediaConversion('preview')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('articles')
+            ->useDisk('public') // or whatever disk you're using
+            ->singleFile(); // if each article should have only one image
     }
 
     public function category(): BelongsTo
