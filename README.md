@@ -83,7 +83,7 @@ To set up the project, follow these steps:
 **Clone the repository**  
    
    ```bash
-   git clone git@github.com:Dachi301/laravel-blog-cms.git
+   git clone https://github.com/Dachi301/laravel-blog-cms.git
    ```
 **Navigate to the project directory**  
 
