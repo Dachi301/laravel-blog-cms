@@ -1,3 +1,141 @@
+# Laravel CMS with Filament Admin Panel
+
+## Project Overview
+
+A streamlined CMS allowing users to create, publish, and manage articles/posts with categories and tags. It includes role-based access (admin, editor, author), a clean RESTful API, and a Filament-powered admin panel.
+
+<img width="1433" alt="admin-1" src="https://github.com/user-attachments/assets/9f671a4b-5a76-4960-9fd0-b9748f20323a" />
+
+<img width="1433" alt="admin-2" src="https://github.com/user-attachments/assets/4940110d-dd12-4d10-9f9a-af6f29df581d" />
+
+<img width="1433" alt="admin-4" src="https://github.com/user-attachments/assets/e2435ead-3866-4a58-86fc-0c82ee2a6d32" />
+
+<img width="1433" alt="admin-3" src="https://github.com/user-attachments/assets/68c4b91d-4d13-4d5a-931b-800236372acb" />
+
+---
+
+## Key Features
+
+### Core Functionality
+- Article creation and publishing
+- Category, subcategory, and tag management
+- User management with roles (admin, editor, author)
+- Featured image uploads
+
+### API
+- RESTful endpoints for articles, categories, and tags
+- Basic authentication using Laravel Sanctum
+
+### Filament Admin
+- Dashboard for managing content
+- User administration (via Spatie permissions)
+- Spatie Media library
+
+---
+
+## ⚙️ Technical Stack
+
+- Laravel 12+
+- Laravel Sanctum for API auth
+- Filament Admin Panel
+- Spatie Laravel-Permission for role management
+- File uploads handled via Spatie Media Library
+
+---
+
+## 🧑‍💻 User Roles & Permissions
+
+| Role   | Articles | Categories | Users |
+|--------|----------|------------|-------|
+| Admin  | Full CRUD | Full CRUD | Full CRUD |
+| Editor | Full CRUD | Full CRUD | No access |
+| Author | Own articles only | No access | No access |
+
+Role-based access is managed with **Spatie Laravel-Permission**.
+
+---
+
+## 👥 Seeded Users
+
+These default users are seeded into the database using `UserSeeder.php`. Use these to log in to the Filament Admin Panel:
+
+```bash
+Name: Admin
+Email: admin@example.com
+Password: 123123123
+Role: admin
+
+Name: Editor
+Email: editor@example.com
+Password: 123123123
+Role: editor
+
+Name: Author
+Email: author@example.com
+Password: 123123123
+Role: author
+```
+
+## Getting Started
+
+To set up the project, follow these steps:
+
+**Clone the repository**  
+   
+   ```bash
+   git clone git@github.com:Dachi301/laravel-task.git
+   ```
+**Navigate to the project directory**  
+
+   ```bash
+   cd laravel-task
+   ```
+**Install PHP dependencies**  
+
+   ```bash
+   composer install
+   ```
+**Install JavaScript dependencies**  
+
+   ```bash
+   npm install
+   ```
+**Compile assets**  
+
+   ```bash
+   npm run dev
+   ```
+**Create a copy of the .env file**  
+
+   ```bash
+   cp .env.example .env
+   ```
+**Generate the application key**  
+
+   ```bash
+   php artisan key:generate
+   ```
+**Create the storage symlink**  
+
+   ```bash
+   php artisan storage:link
+   ```
+**Run migrations**  
+
+   ```bash
+   php artisan migrate
+   ```
+**Seed the database with roles and example data**  
+
+   ```bash
+   php artisan db:seed
+   ```
+**Start the development server**  
+
+   ```bash
+   php artisan serve
+   ```
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
