@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
@@ -32,19 +32,19 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'token' => $user->createToken($user->name)->plainTextToken,
-                'name' => $user->name
-            ],
-        ], 200);
+        if ($user->hasAnyRole([RolesEnum::ADMIN, RolesEnum::EDITOR])) {
+            $route = '/admin';
+        } else if ($user->hasRole(RolesEnum::AUTHOR)) {
+            $route = '/dashboard';
+        }
+
+        return redirect()->intended($route);
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): JsonResponse
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
@@ -52,8 +52,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json([
-            'message' => 'User Logged Out!',
-        ], 200);
+        return redirect('/');
     }
 }
