@@ -100,10 +100,10 @@ To set up the project, follow these steps:
    ```bash
    npm install
    ```
-**Compile assets**  
+**Build the project**  
 
    ```bash
-   npm run dev
+   npm run build
    ```
 **Create a copy of the .env file**  
 
