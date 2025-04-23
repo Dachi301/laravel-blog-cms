@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -22,15 +23,19 @@ class SubCategorySeeder extends Seeder
         ];
 
         foreach ($subCategories as $categoryName => $subs) {
-            $categoryId = $categories[$categoryName] ?? null; // Ensure it exists
+            $categoryId = $categories[$categoryName] ?? null;
             if ($categoryId) {
                 foreach ($subs as $sub) {
-                    DB::table('sub_categories')->insert([
-                        'name' => $sub,
-                        'category_id' => $categoryId,
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ]);
+                    SubCategory::updateOrCreate(
+                        [
+                            'name' => $sub,
+                            'category_id' => $categoryId
+                        ],
+                        [
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]
+                    );
                 }
             }
         }

@@ -15,32 +15,32 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::create(['name' => RolesEnum::ADMIN->value]);
-        $editorRole = Role::create(['name' => RolesEnum::EDITOR->value]);
-        $authorRole = Role::create(['name' => RolesEnum::AUTHOR->value]);
+        $adminRole = Role::firstOrCreate(['name' => RolesEnum::ADMIN->value]);
+        $editorRole = Role::firstOrCreate(['name' => RolesEnum::EDITOR->value]);
+        $authorRole = Role::firstOrCreate(['name' => RolesEnum::AUTHOR->value]);
 
         // Admin
-        $manageUsers = Permission::create([
+        $manageUsers = Permission::firstOrCreate([
             'name' => PermissionsEnum::MANAGEUSERS->value
         ]);
 
         // Admin, Editor
-        $manageAllArticles = Permission::create([
+        $manageAllArticles = Permission::firstOrCreate([
             'name' => PermissionsEnum::MANAGEALLARTICLES->value
         ]);
 
         // Admin, Editor
-        $publishArticlesPermission = Permission::create([
+        $publishArticlesPermission = Permission::firstOrCreate([
             'name' => PermissionsEnum::PUBLISHARTICLES->value
         ]);
 
         // Admin, Editor
-        $manageCategoriesTags = Permission::create([
+        $manageCategoriesTags = Permission::firstOrCreate([
             'name' => PermissionsEnum::MANAGECATEGORIESTAGS->value
         ]);
 
         // Author
-        $manageOwnArticles = Permission::create([
+        $manageOwnArticles = Permission::firstOrCreate([
             'name' => PermissionsEnum::MANAGEOWNARTICLES->value
         ]);
 

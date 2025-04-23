@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\RolesEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -13,19 +14,34 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com'
-        ])->assignRole(RolesEnum::ADMIN->value);
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('123123123'),
+                'email_verified_at' => now()
+            ]
+        );
+        $admin->assignRole(RolesEnum::ADMIN->value);
 
-        User::factory()->create([
-            'name' => 'Editor',
-            'email' => 'editor@example.com'
-        ])->assignRole(RolesEnum::EDITOR->value);
+        $editor = User::firstOrCreate(
+            ['email' => 'editor@example.com'],
+            [
+                'name' => 'Editor',
+                'password' => Hash::make('123123123'),
+                'email_verified_at' => now()
+            ]
+        );
+        $editor->assignRole(RolesEnum::EDITOR->value);
 
-        User::factory()->create([
-            'name' => 'Author',
-            'email' => 'author@example.com'
-        ])->assignRole(RolesEnum::AUTHOR->value);
+        $author = User::firstOrCreate(
+            ['email' => 'author@example.com'],
+            [
+                'name' => 'Author',
+                'password' => Hash::make('123123123'),
+                'email_verified_at' => now()
+            ]
+        );
+        $author->assignRole(RolesEnum::AUTHOR->value);
     }
 }
